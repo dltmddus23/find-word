@@ -1,15 +1,23 @@
-# 단어 찾기 프로그램 (example.txt용)
-def word_search(word_to_find):
-    # example.txt 파일 열기
-    with open('example.txt', 'r', encoding='utf-8') as file:
-        content = file.read()
-        
-    # 단어 개수 세기
-    word_count = content.lower().split().count(word_to_find.lower())
-    print(f"'{word_to_find}' 단어는 총 {word_count}번 발견되었습니다.")
+# 단어 찾기 프로그램
+def word_search(file_path, word_to_find):
+    # 결과를 저장할 리스트
+    lines_with_word = []
+
+    # 파일 열기
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line_number, line in enumerate(file, start=1):
+            # 단어가 해당 줄에 있는지 확인 (대소문자 무시)
+            if word_to_find.lower() in line.lower():
+                lines_with_word.append(line_number)
+    
+    # 결과 출력
+    if lines_with_word:
+        print(f"'{word_to_find}' 단어는 다음 줄에서 발견되었습니다: {lines_with_word}")
+    else:
+        print(f"'{word_to_find}' 단어는 파일에서 발견되지 않았습니다.")
 
 # 실행 코드
 if __name__ == "__main__":
-    print("단어 찾기 프로그램에 오신 것을 환영합니다!")
+    print("Avicii SOS 단어 찾기 프로그램입니다.")
     word_to_find = input("찾고 싶은 단어를 입력하세요: ")
-    word_search(word_to_find)
+    word_search("example.txt", word_to_find)
